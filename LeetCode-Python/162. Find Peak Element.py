@@ -1,26 +1,21 @@
-import sys
-
-
 class Solution(object):
     def findPeakElement(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-
-        start = 1
-        end = len(nums) - 1
-
-        while start <= end:
-            mid = (start + end) / 2
-            if (mid - 1 < 0 or nums[mid] > nums[mid - 1]) and (mid + 1 >= len(nums) or nums[mid] > nums[mid + 1]):
-                return mid
-            elif nums[mid] < nums[mid - 1]:
-                end = mid - 1
+        lt = 0
+        rt = len(nums) - 1
+        while lt < rt:
+            middle = (lt + rt) / 2
+            if (middle == 0 or nums[middle] > nums[middle - 1]) and (middle == len(nums) - 1 or nums[middle] > nums[middle] + 1):
+                return middle
+            elif nums[middle] > nums[middle - 1]:
+                    lt = middle
             else:
-                start = mid
-
-        return 0
+                rt = middle - 1
+        
+        return -1
 
 obj = Solution()
-obj.findPeakElement([1,2,3])
+obj.findPeakElement([1,2,3, 1])

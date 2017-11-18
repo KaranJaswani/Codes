@@ -43,7 +43,7 @@ class Solution(object):
         return result
 
 obj = Solution()
-obj.spiralOrder([[ 1, 2, 3 ],[ 4, 5, 6 ],[ 7, 8, 9 ]])
-obj.spiralOrder([[1],[2],[3],[4],[5],[6],[7],[8],[9],[10]])
-obj.spiralOrder([[1,2,3,4]])
-
+# obj.spiralOrder([[ 1, 2, 3 ],[ 4, 5, 6 ],[ 7, 8, 9 ]])
+# obj.spiralOrder([[1],[2],[3],[4],[5],[6],[7],[8],[9],[10]])
+# obj.spiralOrder([[1,2,3,4]])
+obj.spiralOrder([[6,9,7]])

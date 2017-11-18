@@ -1,29 +1,18 @@
+import heapq
+
 class Solution(object):
     def kthSmallest(self, matrix, k):
-        """
-        :type matrix: List[List[int]]
-        :type k: int
-        :rtype: int
-        """
-        i = 0
-        while i < len(matrix):
-            if k >= len(matrix[i]):
-                k -= len(matrix[i])
-                i += 1
-            else:
-                break
-
-        if k == 0:
-            return [i - 1][0]
-
-        j = len(matrix[i])
-        while j != k:
-            j -= 1
-
-        return matrix[i][j]
+        heap = [(row[0], i, 0) for i, row in enumerate(matrix)]
+        heapq.heapify(heap)
+        ret = 0
+        for _ in range(k):
+            ret, i, j = heapq.heappop(heap)
+            if j+1 < len(matrix[0]):
+                heapq.heappush(heap, (matrix[i][j+1], i, j+1))
+        return ret
 
 
 
 
 obj = Solution()
-obj.kthSmallest([[1]], 1)
+obj.kthSmallest([[1,5,9],[10,11,13],[12,13,15]], 8)

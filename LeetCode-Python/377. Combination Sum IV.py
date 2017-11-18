@@ -29,22 +29,28 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-        hash = {}
-        return self.backtrackCombinationSum4(nums, target, hash)
+        h = {}
+        res = 0
+        res += self.backtrackHelper(nums, target, h)
+        
+        return res
+            
+    
+    def backtrackHelper(self, nums, target, h):
+        
+        if target < 0: return 0
+            
+        if target == 0: return 1
+        
+        if target in h: return h[target]
+        
+        res = 0
+        for k in range(0, len(nums)): 
+            res += self.backtrackHelper(nums, target - nums[k], h)
+        
+        h[target] = res
+        
+        return res
 
-    def backtrackCombinationSum4(self, nums, target, hash):
-        if target in hash.keys():
-            return hash[target]
-
-        if target < 0:
-            return 0
-
-        if target == 0:
-            return 1
-
-        result = 0
-        for i in nums:
-            hash[target - i] = self.backtrackCombinationSum4(nums, target - i, hash)
-            result += hash[target - i]
-
-        return result
+obj = Solution()
+obj.combinationSum4([1,2,3], 4)

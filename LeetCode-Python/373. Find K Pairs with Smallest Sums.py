@@ -1,3 +1,5 @@
+import heapq
+
 class Solution(object):
     def kSmallestPairs(self, nums1, nums2, k):
         """
@@ -6,33 +8,21 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
-        result = []
-        used = [False] * min(len(nums1), len(nums2))
-        self.helper(nums1, nums2, 0, 0, k, result, used)
-        if k > len(nums1) * len(nums2):
-            return result[0:len(result) - 1]
-        else:
-            return result
-
-    def helper(self, nums1, nums2, i, j, k, result, used):
-        if i >= len(nums1) or j >= len(nums2) or k == len(result) or (i == j and used[i]):
-            return
-
-        if i == j:
-            used[i] = True
-
-        lst = []
-        lst.append(nums1[i])
-        lst.append(nums2[j])
-        result.append(lst)
-
-        if i + 1 < len(nums1) and j + 1 < len(nums2) and nums1[i + 1] < nums2[j + 1]:
-            self.helper(nums1, nums2, i + 1, j, k, result, used)
-            self.helper(nums1, nums2, i, j + 1, k, result, used)
-        else:
-            self.helper(nums1, nums2, i, j + 1, k, result, used)
-            self.helper(nums1, nums2, i + 1, j, k, result, used)
-
-
-
-
+        res = []
+        
+        if len(nums1) * len(nums2) > 0:
+            queue = [(nums1[0] + nums2[0], (0, 0))]
+            visited = {}
+            
+            while len(res) < k and queue:
+                (s, (i, j)) = heapq.heappop(queue)
+                res.append((nums1[i], nums2[j]))
+                
+                if j + 1 < len(nums2) and (i, j + 1) not in visited:
+                        heapq.heappush(queue, (nums1[i] + nums2[j + 1], (i, j + 1)))
+                        visited[(i, j + 1)] = 1
+                        
+                if i + 1 < len(nums1) and (i + 1, j) not in visited:
+                        heapq.heappush(queue, (nums1[i + 1] + nums2[j], (i + 1, j)))
+                        visited[(i + 1, j)] = 1
+        return res

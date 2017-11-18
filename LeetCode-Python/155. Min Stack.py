@@ -1,11 +1,13 @@
 class MinStack(object):
-
+    
     stack = []
     minStack = []
     def __init__(self):
         """
         initialize your data structure here.
         """
+        self.stack = []
+        self.minStack = []
 
     def push(self, x):
         """
@@ -13,12 +15,8 @@ class MinStack(object):
         :rtype: void
         """
         self.stack.append(x)
-        if x > self.stack[0]:
+        if len(self.minStack) == 0 or x <= self.minStack[-1]:
             self.minStack.append(x)
-        else:
-            while len(self.stack) > 0 and x <= self.stack[-1]:
-                self.stack.pop(-1)
-        self.stack.append(x)
 
 
     def pop(self):

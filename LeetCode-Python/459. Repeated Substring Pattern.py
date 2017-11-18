@@ -4,9 +4,12 @@ class Solution(object):
         :type str: str
         :rtype: bool
         """
-        for i in xrange(1, len(str) / 2 + 1):
-            if len(str) % i == 0:
-                if str[0:i] * (len(str) / i) == str:
-                    return True
+        return str in (2 * str)[1:-1]
 
-        return False
+
+# If the string S has repeated block, it could be described in terms of pattern.
+# S = SpSp (For example, S has two repeatable block at most)
+# If we repeat the string, then SS=SpSpSpSp.
+# Destroying first and the last pattern by removing each character, we generate a new S2=SxSpSpSy.
+
+# If the string has repeatable pattern inside, S2 should have valid S in its string.
